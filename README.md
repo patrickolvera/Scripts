@@ -1,3 +1,3 @@
 # Scripts
 
-This is my collection of Scripts 
+This is my collection of scripts 
