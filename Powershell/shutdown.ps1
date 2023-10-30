@@ -1,5 +1,4 @@
-# Start-Sleep -s 18000;
-# Stop-Computer -ComputerName localhost
+### --- Simple Script that Shuts Down my Computer in 5 Hours--- ###
 
 # Shutsdown Local Computer in X Seconds
 shutdown -s -t 17990
