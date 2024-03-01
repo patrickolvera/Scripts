@@ -1,3 +1,5 @@
+### --- A Script that Disables TLS 1.0 and 1.1, on Windows Machines to Patch a Vulnerability --- ###
+
 # Define the registry path and key name for TLS 1.0 and 1.1
 #$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS1.0\Client"
 
