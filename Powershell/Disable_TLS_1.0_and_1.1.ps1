@@ -1,5 +1,12 @@
 # Define the registry path and key name for TLS 1.0 and 1.1
-$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\"
+#$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS1.0\Client"
+
+# Start-Process -FilePath "regedit"
+
+# Command to check if Regkey exists
+# Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.0\\Server"
+
+$registryPath = "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\"
 $keyName = "Enabled"
 $value = 0
 
