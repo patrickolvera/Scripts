@@ -1,13 +1,11 @@
 ### --- A Script that Disables TLS 1.0 and 1.1, on Windows Machines to Patch a Vulnerability --- ###
 
-# Define the registry path and key name for TLS 1.0 and 1.1
-#$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS1.0\Client"
-
-# Start-Process -FilePath "regedit"
+# TODO: Add New DWORD for DisabledByDefault
 
 # Command to check if Regkey exists
 # Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.0\\Server"
 
+# Define the registry path and key name for TLS 1.0 and 1.1
 $registryPath = "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\"
 $keyName = "Enabled"
 $value = 0
@@ -30,6 +28,7 @@ if(Test-Path $registryPath) {
         # Create new DWORD Values and set the Enabled property to 0
         New-ItemProperty -Path ($registryPath + $item + "\Server") -Name $keyName -Value $value -PropertyType DWORD -Force | Out-Null
         New-ItemProperty -Path ($registryPath + $item + "\Client") -Name $keyName -Value $value -PropertyType DWORD -Force | Out-Null
+        # 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server' –PropertyType 'DWORD' -Name 'DisabledByDefault' -Value '1' 
     }
 
     # Restart the machine
