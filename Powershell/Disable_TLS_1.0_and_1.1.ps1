@@ -1,14 +1,10 @@
 ### --- A Script that Disables TLS 1.0 and 1.1, on Windows Machines to Patch a Vulnerability --- ###
 
-# TODO: Add New DWORD for DisabledByDefault
-
 # Command to check if Regkey exists
 # Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.0\\Server"
 
 # Define the registry path and key name for TLS 1.0 and 1.1
 $registryPath = "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\"
-$keyName = "Enabled"
-$value = 0
 
 # If the registry path exists, then create the nested keys and DWORDs
 if(Test-Path $registryPath) {
@@ -25,10 +21,12 @@ if(Test-Path $registryPath) {
         New-Item -Path ($registryPath + $item + "\Server") -Force | Out-Null
         New-Item -Path ($registryPath + $item + "\Client") -Force | Out-Null
 
-        # Create new DWORD Values and set the Enabled property to 0
-        New-ItemProperty -Path ($registryPath + $item + "\Server") -Name $keyName -Value $value -PropertyType DWORD -Force | Out-Null
-        New-ItemProperty -Path ($registryPath + $item + "\Client") -Name $keyName -Value $value -PropertyType DWORD -Force | Out-Null
-        # 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server' –PropertyType 'DWORD' -Name 'DisabledByDefault' -Value '1' 
+        # Create new DWORDs 'Enabled' and 'DisabledByDefault'. Set the Enabled Value to 0 and the 'DisabledByDefault' value to 1
+        New-ItemProperty -Path ($registryPath + $item + "\Server") -Name 'Enabled' -value '0' -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path ($registryPath + $item + "\Client") -Name 'Enabled' -value '0' -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path ($registryPath + $item + "\Server") -name 'DisabledByDefault' -value 1 -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path ($registryPath + $item + "\Client") -name 'DisabledByDefault' -value 1 -PropertyType DWORD -Force | Out-Null
+        
     }
 
     # Restart the machine
