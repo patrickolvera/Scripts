@@ -3,7 +3,7 @@
 # Command to check if Regkey exists
 # Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\\TLS 1.0\\Server"
 
-# Define the registry path and key name for TLS 1.0 and 1.1
+# Define the registry path for TLS 1.0 and 1.1
 $registryPath = "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL\\Protocols\"
 
 # If the registry path exists, then create the nested keys and DWORDs
@@ -22,8 +22,8 @@ if(Test-Path $registryPath) {
         New-Item -Path ($registryPath + $item + "\Client") -Force | Out-Null
 
         # Create new DWORDs 'Enabled' and 'DisabledByDefault'. Set the Enabled Value to 0 and the 'DisabledByDefault' value to 1
-        New-ItemProperty -Path ($registryPath + $item + "\Server") -Name 'Enabled' -value '0' -PropertyType DWORD -Force | Out-Null
-        New-ItemProperty -Path ($registryPath + $item + "\Client") -Name 'Enabled' -value '0' -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path ($registryPath + $item + "\Server") -name 'Enabled' -value '0' -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path ($registryPath + $item + "\Client") -name 'Enabled' -value '0' -PropertyType DWORD -Force | Out-Null
         New-ItemProperty -Path ($registryPath + $item + "\Server") -name 'DisabledByDefault' -value 1 -PropertyType DWORD -Force | Out-Null
         New-ItemProperty -Path ($registryPath + $item + "\Client") -name 'DisabledByDefault' -value 1 -PropertyType DWORD -Force | Out-Null
         
