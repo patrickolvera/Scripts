@@ -1,6 +1,7 @@
 apt update
 apt install -y lvm2
-vgcreate sqlvgmain [/dev/sda]
+# Create a partition if needed using fdisk
+vgcreate sqlvgmain [/dev/sda1 /dev/sda2]
 lvcreate -l [extents] sqlvgmain -name lvol0
 mkfs.xfs [/dev/mapper/..]
 mkdir /var/lib/msyql/
