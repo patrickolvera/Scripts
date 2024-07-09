@@ -9,6 +9,9 @@ $downloadurl = 'https://7-zip.org/' + (
     Select-Object -ExpandProperty href
 )
 
+# Path to place the installer in
+$installerPath = Join-Path $env:TEMP (Split-Path $downloadurl -Leaf)
+
 # Grab the latest version from $downloadurl and assign to $latestver
 if ($downloadurl -match '7z(\d+)-x64\.exe') {
     $latestver = $Matches[1]
@@ -43,13 +46,11 @@ if ($installed7zip) {
         Start-Process -FilePath "cmd.exe" -ArgumentList "/c $uninstallString" -Wait -NoNewWindow
         
         # Install the latest version
-        $installerPath = Join-Path $env:TEMP (Split-Path $downloadurl -Leaf)
         Install-7zip -downloadurl $downloadurl -installerPath $installerPath
     } else {
         Write-Output '7zip is on the latest version'
     }
 } else {
     # Install 7zip if not installed
-    $installerPath = Join-Path $env:TEMP (Split-Path $downloadurl -Leaf)
     Install-7zip -downloadurl $downloadurl -installerPath $installerPath
 }
