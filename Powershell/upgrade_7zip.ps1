@@ -1,6 +1,6 @@
 #!#> Script to replace the currently installed 7zip with the latest version or install if 7zip is missing <!#!#
 
-# Grab the URL for the latest version of 7zip as of 7/5/2024
+# Grab the URL for the latest version of 7zip as of 7/5/2024 is equivalent to 'https://7-zip.org/a/7z2407-x64.exe'
 $downloadurl = 'https://7-zip.org/' + (
     Invoke-WebRequest -UseBasicParsing -Uri 'https://7-zip.org/' |
     Select-Object -ExpandProperty Links |
