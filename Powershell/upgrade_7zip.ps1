@@ -41,7 +41,8 @@ if ($installed7zip) {
 
     # Check if the installed version is less than the latest version
     if ([int]$installedver -lt [int]$latestver) {
-        # Uninstall the current version of 7zip
+        # Stop and uninstall the current version of 7zip
+        Get-Process -Name "7zFM", "7zG" -ErrorAction SilentlyContinue | Stop-Process -Force
         $uninstallString = $installed7zip.QuietUninstallString
         Start-Process -FilePath "cmd.exe" -ArgumentList "/c $uninstallString" -Wait -NoNewWindow
         
